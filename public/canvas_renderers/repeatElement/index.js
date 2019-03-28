@@ -27,12 +27,12 @@ export const repeatElement = () => ({
   help: 'Create multiple elements from a data table',
   reuseDomNode: false,
   render(domNode, config, handlers) {
-    const { elements } = config;
+    const { elements, direction } = config;
     const noop = () => {};
     const elementHandlers = { getFilter: noop, setFilter: noop, done: noop, onComplete: noop };
     const draw = () => {
       const content = (
-        <div style={{ display: 'flex', height: '100%' }}>
+        <div style={{ display: 'flex', height: '100%', flexDirection: direction }}>
           {elements.map((element, i) => {
             return (
               <div key={i} style={{ flexGrow: 1, flexBasis: 0 }}>
