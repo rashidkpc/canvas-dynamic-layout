@@ -19,24 +19,37 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { ElementContent } from './components/element_content';
+import { ElementContent } from '../components/element_content';
 
-export const repeatElement = () => ({
-  name: 'repeatElement',
-  displayName: 'Repeat Element',
-  help: 'Create multiple elements from a data table',
+export const pageElement = () => ({
+  name: 'pageElement',
+  displayName: 'Layout Element',
+  help: 'Layout a list of elements like they might be laid out on a page',
   reuseDomNode: false,
   render(domNode, config, handlers) {
-    const { elements, direction } = config;
-    const noop = () => {};
+    const { elements } = config;
+    const noop = () => { };
     const elementHandlers = { getFilter: noop, setFilter: noop, done: noop, onComplete: noop };
     const draw = () => {
+      const nodeHeight = domNode.clientHeight;
+      const nodeWidth = domNode.clientWidth;
       const content = (
-        <div style={{ display: 'flex', height: '100%', flexDirection: direction }}>
+        <div style={{ width: '100%', height: '100%', position: 'relative' }}>
           {elements.map((element, i) => {
+            const { top, left, height, width, angle } = element.position;
             return (
-              <div key={i} style={{ flexGrow: 1, flexBasis: 0 }}>
-                <ElementContent state="done" renderable={element} handlers={elementHandlers} />
+              <div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  height: nodeHeight * height,
+                  width: nodeWidth * width,
+                  top: nodeHeight * top,
+                  left: nodeWidth * left,
+                  transform: `rotate(${360 * angle}deg)`
+                }}
+              >
+                <ElementContent state="done" renderable={element.element} handlers={elementHandlers} />
               </div>
             );
           })}
