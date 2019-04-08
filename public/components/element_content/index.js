@@ -17,7 +17,18 @@
  * under the License.
  */
 
-import { repeatElement } from './repeatElement';
-import { pageElement } from './pageElement';
+import { registries } from 'plugins/interpreter/registries';
+import PropTypes from 'prop-types';
+import { withProps } from 'recompose';
+import { get } from 'lodash';
+import { ElementContent as Component } from './element_content';
 
-export const canvasRenderers = [repeatElement, pageElement];
+export const ElementContent = withProps(({ renderable }) => ({
+  renderFunction: registries.renderers.get(get(renderable, 'as')),
+}))(Component);
+
+ElementContent.propTypes = {
+  renderable: PropTypes.shape({
+    as: PropTypes.string,
+  }),
+};

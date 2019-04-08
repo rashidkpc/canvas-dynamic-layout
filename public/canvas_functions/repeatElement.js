@@ -53,6 +53,8 @@ export const repeatElement = () => ({
   fn: (context, { by, expression, direction }) => {
     const datatables = by ? groupTable(context, by) : [context];
 
+    // In theory this could return a `layoutElement` that has everything already in its place.
+    // The downside of that is the inability to use flexbox which simplifies a ton of stuff
     return Promise.all(datatables.map(expression)).then(elements => {
       return {
         type: 'render',
