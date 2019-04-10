@@ -19,6 +19,7 @@
 
 import { repeatElement } from './repeatElement';
 import { layoutElements } from './layoutElements';
+import { positionElement } from './positionElement'
 import { position } from './position';
 
-export const canvasFunctions = [repeatElement, layoutElements, position];
+export const canvasFunctions = [repeatElement, layoutElements, positionElement, position];
