@@ -25,7 +25,7 @@ export const pageElement = () => ({
   name: 'pageElement',
   displayName: 'Layout Element',
   help: 'Layout a list of elements like they might be laid out on a page',
-  reuseDomNode: false,
+  reuseDomNode: true,
   render(domNode, config, handlers) {
     const { elements } = config;
     const noop = () => { };
@@ -39,6 +39,7 @@ export const pageElement = () => ({
             const { top, left, height, width, angle } = element.position;
             return (
               <div
+                className="canvasPageElement"
                 key={i}
                 style={{
                   position: 'absolute',
