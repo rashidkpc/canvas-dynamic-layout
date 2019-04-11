@@ -26,7 +26,7 @@ See the [kibana contributing guide](https://github.com/elastic/kibana/blob/maste
 
 
 
-Whoa whoa whoa. Ok, here's an example. You can probably sort it out from here. At very least you can drop that isn't your workpad and hack right?
+Whoa whoa whoa. Ok, here's an example. You can probably sort it out from here. At very least you can drop that into your workpad and hack, right?
 
 ![screenshot](https://raw.githack.com/rashidkpc/canvas-dynamic-layout/master/screenshot.png)
 
