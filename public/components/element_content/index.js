@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import { registries } from 'plugins/interpreter/registries';
+import { registries } from '@kbn/interpreter/public';
 import PropTypes from 'prop-types';
 import { withProps } from 'recompose';
 import { get } from 'lodash';

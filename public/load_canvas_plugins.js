@@ -17,13 +17,10 @@
  * under the License.
  */
 
-import { renderersRegistry } from 'plugins/interpreter/registries';
+import { registries } from '@kbn/interpreter/public';
 import { canvasFunctions } from './canvas_functions';
 import { canvasRenderers } from './canvas_renderers';
 
-canvasRenderers.forEach(r => renderersRegistry.register(r));
+canvasRenderers.forEach(r => registries.renderers.register(r));
+canvasFunctions.forEach(r => registries.browserFunctions.register(r));
 
-// Register our elements and browserFunctions with the Canvas interpreter.
-kbnInterpreter.register({
-  browserFunctions: canvasFunctions,
-});
