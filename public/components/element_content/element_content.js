@@ -22,9 +22,9 @@ import PropTypes from 'prop-types';
 import { pure, compose, branch, renderComponent } from 'recompose';
 import Style from 'style-it';
 import { getType } from '@kbn/interpreter/common';
-import { Loading } from '../../../../../x-pack/plugins/canvas/public/components/loading';
-import { RenderWithFn } from '../../../../../x-pack/plugins/canvas/public/components/render_with_fn';
-import { ElementShareContainer } from '../../../../../x-pack/plugins/canvas/public/components/element_share_container';
+import { Loading } from 'plugins/canvas/components/loading';
+import { RenderWithFn } from 'plugins/canvas/components/render_with_fn';
+import { ElementShareContainer } from 'plugins/canvas/components/element_share_container';
 import { InvalidExpression } from './invalid_expression';
 import { InvalidElementType } from './invalid_element_type';
 
