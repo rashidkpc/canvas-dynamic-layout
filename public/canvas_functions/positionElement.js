@@ -47,11 +47,36 @@ export const positionElement = () => ({
       const container = containers[i];
       const { css, containerStyle } = container;
 
+      let top = null;
+      let left = null;
+      let bottom = null;
+      let right = null;
+
+      // If both top & bottom are unset, auto define top. If only one is set, set that one. If both are set, only set top;
+      if (container.top == null) {
+        if (container.bottom == null) {
+          top = 0;
+        } else {
+          bottom = container.bottom;
+        }
+      } else {
+        top = container.top;
+      }
+
+      if (container.left == null) {
+        if (container.right == null) {
+          left = 0;
+        } else {
+          right = container.right;
+        }
+      } else {
+        left = container.left;
+      }
+
+
       const angle = container.angle != null ? container.angle : 0;
       const height = container.height != null ? container.height : 1;
       const width = container.width != null ? container.width : 1;
-      const top = container.top != null ? container.top : 0; //
-      const left = container.left != null ? container.left : 0;
 
       const element = {
         ...originElement,
@@ -60,7 +85,7 @@ export const positionElement = () => ({
       };
       return {
         element,
-        position: { top, left, height, width, angle }
+        position: { ...container, top, left, height, width, angle, bottom, right }
       };
     });
 

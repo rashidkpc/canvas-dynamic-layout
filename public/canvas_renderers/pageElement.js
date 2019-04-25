@@ -30,27 +30,39 @@ export const pageElement = () => ({
     const { elements } = config;
     const noop = () => { };
     const elementHandlers = { getFilter: noop, setFilter: noop, done: noop, onComplete: noop };
+    const destroy = () => ReactDOM.unmountComponentAtNode(domNode);
+
     const draw = () => {
+      destroy();
       const nodeHeight = domNode.clientHeight;
       const nodeWidth = domNode.clientWidth;
       const content = (
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
           {elements.map((element, i) => {
-            const { top, left, height, width, angle } = element.position;
+            const { top, left, height, width, angle, bottom, right } = element.position;
+            const customClass = element.position.class;
+            const pxHeight = nodeHeight * height;
+            const pxWidth = nodeWidth * width;
             return (
               <div
-                className="canvasPageElement"
+                className={["canvasPageElement", customClass].join(' ')}
                 key={i}
                 style={{
                   position: 'absolute',
-                  height: nodeHeight * height,
-                  width: nodeWidth * width,
-                  top: nodeHeight * top,
-                  left: nodeWidth * left,
+                  height: pxHeight,
+                  width: pxWidth,
+                  top: top != null ? nodeHeight * top : null,
+                  left: left != null ? nodeWidth * left : null,
+                  bottom: bottom != null ? nodeHeight * bottom : null,
+                  right: right != null ? nodeWidth * right : null,
                   transform: `rotate(${360 * angle}deg)`
                 }}
               >
-                <ElementContent state="done" renderable={element.element} handlers={elementHandlers} />
+                <ElementContent
+                  state="done"
+                  renderable={element.element}
+                  handlers={elementHandlers}
+                  size={{ height: pxHeight, width: pxWidth }} />
               </div>
             );
           })}
@@ -60,7 +72,6 @@ export const pageElement = () => ({
     };
     draw();
 
-    const destroy = () => ReactDOM.unmountComponentAtNode(domNode);
 
     handlers.onDestroy(destroy);
     handlers.onResize(() => {

@@ -17,27 +17,38 @@
  * under the License.
  */
 
+const snippet1 = `representing a percentage of the parent container's`;
 
+
+// Note that none of these have defaults. Passing null is desirable here as the consumer of these objects determines how defaults are filled
 export const position = () => ({
   name: 'position',
   type: 'position',
-  help: 'Create a position specification. Usually paired with a layout function of some sort',
+  help: 'Create a position specification. Usually paired with a layout function of some sort.',
   args: {
     height: {
       types: ['number'],
-      help: `Height of the element as a number between 0 and 1 representing a percentage of the parent container's height`,
+      help: `Height of the element as a number between 0 and 1 ${snippet1} height`,
     },
     width: {
       types: ['number'],
-      help: `Width of the element as a number between 0 and 1 representing a percentage of the parent container's width`,
+      help: `Width of the element as a number between 0 and 1 ${snippet1} width`,
     },
     top: {
       types: ['number'],
-      help: `Distance from top of parent container as a number between 0 and 1 representing a percentage of the parent container's height`,
+      help: `Distance from top as a number between 0 and 1 ${snippet1} height`,
     },
     left: {
       types: ['number'],
-      help: `Distance from left edge as a number between 0 and 1 representing a percentage of the parent container's width`,
+      help: `Distance from left edge as a number between 0 and 1 ${snippet1} width`,
+    },
+    bottom: {
+      types: ['number'],
+      help: `Distance from bottom as a number between 0 and 1 ${snippet1} height`,
+    },
+    right: {
+      types: ['number'],
+      help: `Distance from right edge as a number between 0 and 1 ${snippet1} width`,
     },
     angle: {
       types: ['number'],
@@ -48,13 +59,16 @@ export const position = () => ({
       help:
         'Custom CSS style to apply to container. Same as you would use in a call to `render`. Clobbers custom CSS applied to the elements',
     },
+    class: {
+      types: ['string'],
+      default: 'canvasPositionFn',
+      help: 'Advanced: Attach a custom CSS class to the element',
+    },
     containerStyle: {
       types: ['containerStyle'],
       default: '{containerStyle}',
       help: 'Container styling, clobbers container styling applied to the element',
     },
-    // In the future it may make sense to add things like shape, or tooltip values, but I think what we have is good for now
-    // The way the function below is written you can add as many arbitrary named args as you want.
   },
   fn: (context, args) => {
     return {

@@ -61,11 +61,34 @@ export const layoutElements = () => ({
         const container = containers[i];
         const { css, containerStyle } = container;
 
-        const angle = container.angle != null ? container.angle : 0;
+        let top = null;
+        let left = null;
+        let bottom = null;
+        let right = null;
+        if (container.top == null) {
+          if (container.bottom == null) {
+            top = (1 / count) * i;
+          } else {
+            bottom = container.bottom;
+          }
+        } else {
+          top = container.top;
+        }
+
+        if (container.left == null) {
+          if (container.right == null) {
+            left = (1 / count) * i;
+          } else {
+            right = container.right;
+          }
+        } else {
+          left = container.left;
+        }
+
+        // Auto calculated values
         const height = container.height != null ? container.height : (1 / count);
         const width = container.width != null ? container.width : (1 / count);
-        const top = container.top != null ? container.top : (1 / count) * i; //
-        const left = container.left != null ? container.left : (1 / count) * i;
+        const angle = container.angle != null ? container.angle : 0;
 
         const element = {
           ...originElement,
@@ -74,7 +97,7 @@ export const layoutElements = () => ({
         };
         return {
           element,
-          position: { top, left, height, width, angle }
+          position: { ...container, top, left, height, width, angle, bottom, right }
         };
       });
 
