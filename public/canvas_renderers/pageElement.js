@@ -39,6 +39,12 @@ export const pageElement = () => ({
       const content = (
         <div style={{ width: '100%', height: '100%', position: 'relative' }}>
           {elements.map((element, i) => {
+            
+            // Some brief sanity checking
+            if (!element.position) return;
+            if (!element.element) return;
+            if (!element.element.type === 'render') return;
+
             const { top, left, height, width, angle, bottom, right } = element.position;
             const customClass = element.position.class;
             const pxHeight = nodeHeight * height;
@@ -65,7 +71,7 @@ export const pageElement = () => ({
                   size={{ height: pxHeight, width: pxWidth }} />
               </div>
             );
-          })}
+          }).filter(e => e !== null)}
         </div>
       );
       ReactDOM.render(content, domNode, () => handlers.done());
